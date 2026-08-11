@@ -20,6 +20,57 @@ Nothing writes to the old server at any point. It is only ever read.
 
 
 --------------------------------------------------------------------------------
+READ THIS FIRST - WHICH FILE OPENS IN WHAT
+--------------------------------------------------------------------------------
+
+There are three kinds of file in this folder and they are NOT interchangeable.
+
+  .sql   Open in SQL Server Management Studio. Press F5.
+
+  .bat   DOUBLE-CLICK in Windows Explorer. It asks you a few questions and
+         runs the matching .ps1 for you.
+
+  .ps1   PowerShell. Do not open these yourself and do NOT paste them into
+         SQL Server Management Studio - SSMS will try to read PowerShell as
+         SQL and give you a screen full of "Incorrect syntax near" errors.
+         Use the .bat files instead; that is what they are for.
+
+
+--------------------------------------------------------------------------------
+TWO ROUTES - PICK ONE
+--------------------------------------------------------------------------------
+
+ROUTE A - EVERYTHING INSIDE SSMS, NOTHING TO INSTALL      07_ssms_only_...sql
+
+  Start here if you would rather not deal with PowerShell at all.
+
+  You open one .sql file on the OLD server, change four lines at the top,
+  press F5, and it writes a complete ready-to-run INSERT script for you in
+  the Messages tab. Copy that, paste it into a query window on the NEW
+  server, and run it.
+
+  It handles apostrophes, NULLs, dates, GUIDs and Danish characters, wraps
+  IDENTITY_INSERT around the insert where needed, and guards every row so
+  running it twice cannot create duplicates.
+
+  One table at a time, parents before children. Comfortable up to a few
+  thousand rows per table.
+
+  This is the simplest route and for a two-week gap it is very probably all
+  you need.
+
+ROUTE B - THE BCP ROUTE                        RUN_EXPORT.bat / RUN_IMPORT.bat
+
+  Better for large tables, and it moves every table in one go rather than
+  one at a time. Double-click RUN_EXPORT.bat on the old server, copy the
+  output folder across, double-click RUN_IMPORT.bat on the new server, then
+  finish in SSMS with 05 and 06.
+
+Both routes end up in the same place. Route A involves more copying and
+pasting; route B involves more setting up. Neither is more or less safe.
+
+
+--------------------------------------------------------------------------------
 THE ONE THING TO UNDERSTAND BEFORE YOU START
 --------------------------------------------------------------------------------
 
