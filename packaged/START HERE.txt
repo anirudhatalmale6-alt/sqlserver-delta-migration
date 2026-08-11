@@ -1,0 +1,53 @@
+================================================================================
+ START HERE
+================================================================================
+
+You only need ONE file. It is in the folder:
+
+    1 - SIMPLE ROUTE - open these in SSMS
+        STEP 1 - generate the inserts (run in SSMS).sql
+
+Open that in SQL Server Management Studio, on the OLD server.
+That is it. Ignore folder 2 completely for now.
+
+
+--------------------------------------------------------------------------------
+ THE THREE STEPS
+--------------------------------------------------------------------------------
+
+ 1. Open the file above in SSMS, connected to the OLD server (VM0810).
+    Choose the database in the dropdown at the top left.
+
+ 2. Change these lines near the top of the file, then press F5:
+
+        DECLARE @Schema     sysname = 'dbo';
+        DECLARE @Table      sysname = 'PUT_YOUR_TABLE_NAME_HERE';
+        DECLARE @Where      nvarchar(max) = '[Created] >= ''2026-07-30''';
+        DECLARE @KeyColumns nvarchar(500) = 'PUT_A_KEY_COLUMN_HERE';
+
+ 3. Click the MESSAGES tab - not the Results tab.
+    A finished INSERT script is sitting there. Select it all, copy it,
+    paste it into a query window on the NEW server (VM1535), and run it.
+
+Repeat for the next table. Parents before children.
+
+
+--------------------------------------------------------------------------------
+ ABOUT THAT FOLDER 2
+--------------------------------------------------------------------------------
+
+Folder 2 is a different, faster route for very large tables. It uses
+PowerShell rather than SQL.
+
+The two files inside "DO NOT OPEN THESE IN SSMS" are PowerShell scripts.
+Management Studio cannot run PowerShell - if you paste one into a query
+window and press Execute you get a long list of "Incorrect syntax near"
+errors. Nothing is damaged when that happens, it just cannot work.
+
+If you ever do want that route, you do not open those files at all. You
+double-click RUN_EXPORT.bat in Windows Explorer instead, and it runs them
+for you with the right settings.
+
+But you almost certainly do not need folder 2. For a two-week gap the
+simple route is enough.
+================================================================================
