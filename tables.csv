@@ -1,0 +1,28 @@
+Schema;Table;WhereClause;KeyColumns;KeepIdentity
+# ---------------------------------------------------------------------------
+# One line per table. Columns are separated by SEMICOLONS, because the
+# WhereClause and KeyColumns fields contain commas of their own.
+#
+# Lines starting with # are ignored, so you can work through a large database
+# in batches by commenting tables in and out.
+#
+# Generate these lines automatically with 01_discover_and_config.sql - it
+# fills in the date column and the key for you. The examples below are from
+# my own test database, so replace them with your own.
+#
+#   WhereClause   Which rows to take from the OLD server.
+#                 Empty means the whole table.
+#                 Do not use double quote characters in here - single quotes
+#                 around dates and text, as in SQL.
+#
+#   KeyColumns    How to recognise a row we already have. Prefer a real
+#                 business value over the automatic ID where you have one.
+#
+#   KeepIdentity  1 = keep the original ID numbers (normal)
+#                 0 = let the new server allocate fresh ones (only for the
+#                     tables that 02_check_gap_and_collisions.sql flags)
+# ---------------------------------------------------------------------------
+dbo;Countries;;Code;0
+dbo;Members;[Created] >= '2026-07-30';ID;1
+dbo;VIPsubscriptions;[Created] >= '2026-07-30';OrderID;1
+dbo;PaymentLog;[Created] >= '2026-07-30';ID;1
